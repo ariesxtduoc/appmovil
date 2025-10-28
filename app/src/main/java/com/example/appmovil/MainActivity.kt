@@ -1,47 +1,20 @@
 package com.example.appmovil
 
 import android.os.Bundle
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
-import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import com.example.appmovil.ui.theme.AppmovilTheme
+import androidx.appcompat.app.AppCompatActivity // Importante: Cambiamos a AppCompatActivity
 
-class MainActivity : ComponentActivity() {
+// Eliminamos todas las importaciones de Compose (ComponentActivity, setContent, Composable, etc.)
+
+class MainActivity : AppCompatActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
+        // Llama a super.onCreate y maneja la restauración del estado si es necesario
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContent {
-            AppmovilTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
-                    )
-                }
-            }
-        }
+
+        // CRÍTICO: Carga la interfaz XML (activity_main.xml)
+        // Este layout contiene el NavHostFragment que a su vez carga tu LoginFragment.
+        setContentView(R.layout.activity_main)
     }
 }
 
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    AppmovilTheme {
-        Greeting("Android")
-    }
-}
+// Eliminamos las funciones @Composable (Greeting y GreetingPreview) ya que no usaremos Compose aquí.
