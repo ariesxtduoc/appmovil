@@ -41,9 +41,25 @@ android {
 
 }
 
+// =========================================================================
+// ✅ SOLUCIÓN CRÍTICA: ESTRATEGIA DE RESOLUCIÓN PARA FORZAR LA VERSIÓN
+// =========================================================================
+configurations.all {
+    resolutionStrategy {
+        // Forzamos la versión 1.6.2 para todos los módulos de fragment-ktx
+        force("androidx.fragment:fragment-ktx:1.6.2")
+    }
+}
+
+
 dependencies {
 
     implementation(libs.androidx.core.ktx)
+
+    // Dependencias de ViewModel y Fragment KTX
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
+    implementation(libs.androidx.fragment.ktx)
+
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
     implementation(platform(libs.androidx.compose.bom))
@@ -51,8 +67,13 @@ dependencies {
     implementation(libs.androidx.compose.ui.graphics)
     implementation(libs.androidx.compose.ui.tooling.preview)
     implementation(libs.androidx.compose.material3)
-    implementation(libs.androidx.navigation.fragment.ktx)
+
+    // Las de navegación con la exclusión (la mantenemos por si acaso)
+    implementation(libs.androidx.navigation.fragment.ktx) {
+        exclude(group = "androidx.fragment", module = "fragment-ktx")
+    }
     implementation(libs.androidx.navigation.ui.ktx)
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

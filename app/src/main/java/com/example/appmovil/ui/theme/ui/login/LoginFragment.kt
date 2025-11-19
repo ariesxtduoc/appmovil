@@ -1,43 +1,70 @@
 package com.example.appmovil.ui.theme.ui.login
 
-
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.example.appmovil.R
-// Importa R para acceder al layout: R.layout.fragment_login
+import com.example.appmovil.databinding.FragmentLoginBinding
 
-/**
- * Fragmento que maneja la vista de Inicio de Sesión de HuertoHogar.
- * Su principal tarea es inflar el diseño XML simplificado.
- */
 class LoginFragment : Fragment() {
 
-    // Nota: Es recomendable usar ViewBinding para acceder a los elementos del layout (botones, campos de texto),
-    // pero por ahora, solo inflaremos la vista de forma básica.
+    private val viewModel: LoginViewModel by viewModels()
+
+    private var _binding: FragmentLoginBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // La función CRÍTICA para que la interfaz se vea:
-        // Carga el contenido del archivo XML 'fragment_login.xml'
-        val view = inflater.inflate(R.layout.fragment_login, container, false)
-        return view
+    ): View {
+        _binding = FragmentLoginBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // ** Aquí es donde se conectaría la lógica del ViewModel y los listeners de botones **
+        binding.etEmail.afterTextChanged {
+            viewModel.email.value = it
+        }
+        binding.etPassword.afterTextChanged {
+            viewModel.password.value = it
+        }
 
-        // Ejemplo (Necesitarías ViewBinding o findViewById para esto):
-        // val loginButton: Button = view.findViewById(R.id.btn_login)
-        // loginButton.setOnClickListener {
-        //     // Lógica para intentar iniciar sesión
-        // }
+        binding.btnLogin.setOnClickListener {
+            viewModel.attemptLogin()
+        }
+
+        viewModel.loginStatus.observe(viewLifecycleOwner) { isSuccess ->
+            if (isSuccess == true) {
+
+                // ✅ NAVEGACIÓN CORRECTA
+                findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
+
+            } else if (isSuccess == false) {
+                Toast.makeText(context, "Error: Email o contraseña incorrectos.", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    private fun android.widget.EditText.afterTextChanged(action: (String) -> Unit) {
+        this.addTextChangedListener(object : android.text.TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+            override fun afterTextChanged(s: android.text.Editable?) {
+                action(s.toString())
+            }
+        })
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

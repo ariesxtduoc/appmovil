@@ -5,12 +5,24 @@
     android:id="@+id/nav_graph"
     app:startDestination="@id/loginFragment">
 
+    <!-- Pantalla de Login -->
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.example.appmovil.ui.theme.ui.login.LoginFragment"
         android:label="Login"
         tools:layout="@layout/fragment_login">
 
+        <action
+            android:id="@+id/action_loginFragment_to_homeFragment"
+            app:destination="@id/homeFragment"
+            app:launchSingleTop="true" />
     </fragment>
+
+    <!-- Pantalla del catálogo -->
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.example.appmovil.ui.theme.ui.home.HomeFragment"
+        android:label="Home"
+        tools:layout="@layout/fragment_home" />
 
 </navigation>
