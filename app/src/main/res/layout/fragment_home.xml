@@ -5,9 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context="com.example.appmovil.ui.theme.ui.home">
+    tools:context="com.example.appmovil.ui.theme.ui.home.HomeFragment"> <!-- CORRECCIÓN 1: Nombre de la clase agregado -->
 
     <!-- RecyclerView: Contenedor para la lista de tarjetas de producto -->
+    <!-- Todos los atributos DEBEN ir dentro de la etiqueta inicial y terminar con /> -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_product_list"
         android:layout_width="0dp"
@@ -16,15 +17,13 @@
         android:paddingTop="8dp"
         android:paddingBottom="8dp"
 
-    <!-- Configuración que el IDE usa para el diseño: lista vertical -->
-    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:listitem="@layout/item_product"
 
-    <!-- Indica qué layout de ítem usará (para que el diseñador lo muestre) -->
-    tools:listitem="@layout/item_product"
-
-    app:layout_constraintBottom_toBottomOf="parent"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        /> <!-- CORRECCIÓN 2: Cierre de etiqueta /> para auto-cerrar el componente -->
 
 </androidx.constraintlayout.widget.ConstraintLayout>
