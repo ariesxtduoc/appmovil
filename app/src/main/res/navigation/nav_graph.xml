@@ -5,12 +5,26 @@
     android:id="@+id/nav_graph"
     app:startDestination="@id/loginFragment">
 
+    <!-- 1. DESTINO: Pantalla de Login -->
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.example.appmovil.ui.theme.ui.login.LoginFragment"
         android:label="Login"
         tools:layout="@layout/fragment_login">
 
+        <!-- ACCIÓN DE NAVEGACIÓN A CATÁLOGO -->
+        <action
+            android:id="@+id/action_loginFragment_to_homeFragment"
+            app:destination="@id/homeFragment"
+            app:popUpTo="@id/loginFragment"
+            app:popUpToInclusive="true" />
     </fragment>
+
+    <!-- 2. DESTINO: Pantalla del Catálogo (Home) -->
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.example.appmovil.ui.theme.ui.home.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" />
 
 </navigation>
