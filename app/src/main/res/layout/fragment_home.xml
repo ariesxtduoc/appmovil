@@ -7,7 +7,21 @@
     android:background="@android:color/white"
     tools:context=".ui.theme.ui.home.HomeFragment">
 
-    <!-- Encabezado de la pantalla -->
+    <!-- BOTÓN DE VOLVER A LA PÁGINA DE LOGIN (NUEVO) -->
+    <ImageButton
+        android:id="@+id/btn_navigate_back"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="Volver a la pantalla de Login"
+        android:src="@drawable/ic_arrow_back"
+        app:tint="@android:color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Título de la pantalla (tvTitle) -->
     <TextView
         android:id="@+id/tvTitle"
         android:layout_width="0dp"
@@ -19,9 +33,10 @@
         android:textColor="@android:color/black"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toStartOf="@+id/btn_navigate_back"
+        tools:text="Catálogo de Productos" />
 
-    <!-- RecyclerView: Contenedor para la lista de tarjetas de producto (SINTAXIS CORREGIDA) -->
+    <!-- RecyclerView: Contenedor para la lista de tarjetas de producto -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvProductList"
         android:layout_width="0dp"

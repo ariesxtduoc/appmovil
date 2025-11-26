@@ -3,10 +3,9 @@ package com.example.appmovil.ui.theme.ui.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.appmovil.databinding.ItemProductBinding
 import com.example.appmovil.ui.theme.domain.model.Product
-
-
 
 class ProductAdapter(
     private val onAddToCartClick: (Product) -> Unit
@@ -19,10 +18,24 @@ class ProductAdapter(
 
         fun bind(product: Product) {
 
+            // Cargar imagen con Glide
+            Glide.with(binding.root.context)
+                .load(product.imageUrl)
+                .placeholder(android.R.drawable.ic_menu_gallery)    // imagen mientras carga
+                .error(android.R.drawable.ic_menu_report_image)     // imagen si falla
+                .centerCrop()
+                .override(80, 80)
+                .into(binding.imgProducto)
 
+
+
+            // Nombre
             binding.txtNombreProducto.text = product.name
+
+            // Precio formateado
             binding.txtPrecioProducto.text = "$${product.price}"
 
+            // Click
             binding.root.setOnClickListener {
                 onAddToCartClick(product)
             }

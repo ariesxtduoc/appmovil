@@ -27,18 +27,20 @@ android {
             )
         }
     }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
+
     kotlinOptions {
         jvmTarget = "11"
     }
+
     buildFeatures {
         compose = true
         viewBinding = true
     }
-
 }
 
 dependencies {
@@ -55,9 +57,14 @@ dependencies {
     implementation(libs.androidx.navigation.ui.ktx)
 
     // =========================================================================
-    // DEPENDENCIAS AÑADIDAS PARA SOLUCIONAR LOS ERRORES DE by viewModels() Y MVVM
+    // DEPENDENCIAS PARA MVVM Y viewModels()
     implementation("androidx.fragment:fragment-ktx:1.6.2")
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.7.0")
+    // =========================================================================
+
+    //  DEPENDENCIA PARA GLIDE (CARGA DE IMÁGENES)
+    implementation("com.github.bumptech.glide:glide:4.16.0")
+    annotationProcessor("com.github.bumptech.glide:compiler:4.16.0")
     // =========================================================================
 
     testImplementation(libs.junit)

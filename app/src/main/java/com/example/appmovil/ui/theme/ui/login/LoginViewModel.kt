@@ -19,8 +19,8 @@ class LoginViewModel : ViewModel() {
 
     // =========================================================================
     // 3. CREDENCIALES VÁLIDAS (Valores de ejemplo)
-    private val VALID_EMAIL = "user@example.com"
-    private val VALID_PASSWORD = "password123"
+    private val VALID_EMAIL = "alanbravo.com"
+    private val VALID_PASSWORD = "alan"
     // =========================================================================
 
     /**
