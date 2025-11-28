@@ -15,7 +15,7 @@ class RegisterFragment : Fragment() {
     private var _binding: FragmentRegisterBinding? = null
     private val binding get() = _binding!!
 
-    // Usamos el mismo nombre de SharedPreferences que en LoginFragment
+    // Nombre del SharedPreferences único
     private val prefsName = "user_prefs"
 
     override fun onCreateView(
@@ -42,7 +42,7 @@ class RegisterFragment : Fragment() {
             val password = binding.etPassword.text.toString()
             val confirmPassword = binding.etConfirmPassword.text.toString()
 
-            // 1️⃣ Validaciones básicas
+            // Validaciones básicas
             if (name.isEmpty() || email.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
                 Toast.makeText(context, "Todos los campos son obligatorios", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
@@ -53,17 +53,18 @@ class RegisterFragment : Fragment() {
                 return@setOnClickListener
             }
 
-            // 2️⃣ Guardar usuario en SharedPreferences
+            // Guardar usuario en SharedPreferences (sobrescribe siempre)
             val sharedPref = requireActivity().getSharedPreferences(prefsName, Context.MODE_PRIVATE)
-            val editor = sharedPref.edit()
-            editor.putString("user_name", name)
-            editor.putString("user_email", email)
-            editor.putString("user_password", password)
-            editor.apply()
+            sharedPref.edit().apply {
+                putString("user_name", name)
+                putString("user_email", email)
+                putString("user_password", password)
+                apply()
+            }
 
             Toast.makeText(context, "Registro exitoso", Toast.LENGTH_SHORT).show()
 
-            // 3️⃣ Volver a pantalla de login
+            // Volver al login
             findNavController().popBackStack()
         }
     }

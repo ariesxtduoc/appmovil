@@ -21,7 +21,7 @@ class LoginFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val prefs by lazy {
-        requireContext().getSharedPreferences("users_pref", Context.MODE_PRIVATE)
+        requireContext().getSharedPreferences("user_prefs", Context.MODE_PRIVATE)
     }
 
     override fun onCreateView(
@@ -36,7 +36,7 @@ class LoginFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // 🔹 Cargar imagen del logo
+        // Cargar logo desde URL
         val url = binding.imgLogo.tag.toString()
         Glide.with(requireContext())
             .load(url)
@@ -44,14 +44,14 @@ class LoginFragment : Fragment() {
             .error(android.R.drawable.ic_menu_report_image)
             .into(binding.imgLogo)
 
-        // 🔹 Botón LOGIN
+        // Botón LOGIN
         binding.btnLogin.setOnClickListener {
             val email = binding.etEmail.text.toString().trim()
-            val password = binding.etPassword.text.toString()
+            val password = binding.etPassword.text.toString().trim()
             attemptLogin(email, password)
         }
 
-        // 🔹 Botón ir a REGISTRO
+        // Botón ir a REGISTRO
         binding.tvGoRegister.setOnClickListener {
             findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
         }
@@ -79,9 +79,7 @@ class LoginFragment : Fragment() {
         this.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
-            override fun afterTextChanged(s: Editable?) {
-                action(s.toString())
-            }
+            override fun afterTextChanged(s: Editable?) { action(s.toString()) }
         })
     }
 
