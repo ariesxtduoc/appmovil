@@ -18,16 +18,13 @@ class ProductAdapter(
 
         fun bind(product: Product) {
 
-            // Cargar imagen con Glide
+            // Cargar imagen con Glide (CORREGIDO)
             Glide.with(binding.root.context)
                 .load(product.imageUrl)
                 .placeholder(android.R.drawable.ic_menu_gallery)    // imagen mientras carga
                 .error(android.R.drawable.ic_menu_report_image)     // imagen si falla
                 .centerCrop()
-                .override(80, 80)
                 .into(binding.imgProducto)
-
-
 
             // Nombre
             binding.txtNombreProducto.text = product.name
