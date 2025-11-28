@@ -1,5 +1,6 @@
 package com.example.appmovil.ui.theme.ui.login
 
+import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -9,7 +10,6 @@ import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.example.appmovil.R
@@ -17,10 +17,12 @@ import com.example.appmovil.databinding.FragmentLoginBinding
 
 class LoginFragment : Fragment() {
 
-    private val viewModel: LoginViewModel by viewModels()
-
     private var _binding: FragmentLoginBinding? = null
     private val binding get() = _binding!!
+
+    private val prefs by lazy {
+        requireContext().getSharedPreferences("users_pref", Context.MODE_PRIVATE)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -34,7 +36,7 @@ class LoginFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Cargar imagen del logo
+        // 🔹 Cargar imagen del logo
         val url = binding.imgLogo.tag.toString()
         Glide.with(requireContext())
             .load(url)
@@ -42,26 +44,33 @@ class LoginFragment : Fragment() {
             .error(android.R.drawable.ic_menu_report_image)
             .into(binding.imgLogo)
 
-        // Inputs -> ViewModel
-        binding.etEmail.afterTextChanged { viewModel.email.value = it }
-        binding.etPassword.afterTextChanged { viewModel.password.value = it }
-
-        // Botón login
+        // 🔹 Botón LOGIN
         binding.btnLogin.setOnClickListener {
-            viewModel.attemptLogin()
+            val email = binding.etEmail.text.toString().trim()
+            val password = binding.etPassword.text.toString()
+            attemptLogin(email, password)
         }
 
-        // 🔹 NAVEGAR A REGISTRO 🔹
+        // 🔹 Botón ir a REGISTRO
         binding.tvGoRegister.setOnClickListener {
             findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
         }
+    }
 
-        // Observador del login
-        viewModel.loginStatus.observe(viewLifecycleOwner) { isSuccess ->
-            when (isSuccess) {
-                true -> findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
-                false -> Toast.makeText(context, "Error: Correo o contraseña incorrectos.", Toast.LENGTH_SHORT).show()
-                null -> {}
+    private fun attemptLogin(email: String, password: String) {
+        val savedEmail = prefs.getString("user_email", null)
+        val savedPassword = prefs.getString("user_password", null)
+
+        when {
+            email.isEmpty() || password.isEmpty() -> {
+                Toast.makeText(context, "Completa todos los campos", Toast.LENGTH_SHORT).show()
+            }
+            email == savedEmail && password == savedPassword -> {
+                // Login correcto
+                findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
+            }
+            else -> {
+                Toast.makeText(context, "Correo o contraseña incorrectos", Toast.LENGTH_SHORT).show()
             }
         }
     }
