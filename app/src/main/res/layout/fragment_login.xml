@@ -27,8 +27,9 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_marginBottom="40dp"
-        android:src="@drawable/logo_huerto_hogar"
-        android:contentDescription="@string/app_name"/>
+        android:contentDescription="@string/app_name"
+        android:tag="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTKqY80cZ4Swcmkv6lxEsMwLcKjRrPVyKsjTw&amp;s"/>
+
 
     <EditText
         android:id="@+id/et_email"
