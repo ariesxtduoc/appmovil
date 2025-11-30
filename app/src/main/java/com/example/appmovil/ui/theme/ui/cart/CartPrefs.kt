@@ -1,7 +1,5 @@
 package com.example.appmovil.ui.theme.ui.cart
 
-
-
 import android.content.Context
 import com.example.appmovil.ui.theme.domain.model.Product
 import com.google.gson.Gson
@@ -22,7 +20,7 @@ object CartPrefs {
         return gson.fromJson(json, type) ?: mutableListOf()
     }
 
-    // Guardar carrito
+    // Guardar carrito completo
     private fun saveCart(context: Context, items: List<CartItem>) {
         val json = gson.toJson(items)
         context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)

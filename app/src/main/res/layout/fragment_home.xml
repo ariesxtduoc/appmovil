@@ -7,6 +7,20 @@
     android:background="@android:color/white"
     tools:context=".ui.theme.ui.home.HomeFragment">
 
+    <!-- BOTÓN DE USUARIO -->
+    <ImageButton
+        android:id="@+id/btnUser"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="Cuenta de usuario"
+        android:src="@drawable/ic_user"
+        app:tint="@android:color/black"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/btnCart" />
+
     <!-- BOTÓN DE CARRITO -->
     <ImageButton
         android:id="@+id/btnCart"
@@ -47,7 +61,7 @@
         android:textColor="@android:color/black"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toEndOf="@id/btn_navigate_back"
-        app:layout_constraintEnd_toStartOf="@id/btnCart"
+        app:layout_constraintEnd_toStartOf="@id/btnUser"
         tools:text="Catálogo de Productos" />
 
     <!-- LISTA DE PRODUCTOS -->
@@ -58,10 +72,10 @@
         android:clipToPadding="false"
         android:paddingTop="8dp"
         android:paddingBottom="8dp"
-        app:layout_constraintTop_toBottomOf="@id/tvTitle"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvTitle"
         tools:listitem="@layout/item_product" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

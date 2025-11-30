@@ -1,7 +1,5 @@
 package com.example.appmovil.ui.theme.ui.cart
 
-
-
 import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -28,5 +26,26 @@ class CartViewModel : ViewModel() {
 
     fun getTotal(): Double {
         return _cartItems.value?.sumOf { it.product.price * it.quantity } ?: 0.0
+    }
+
+    // 🔥 Registrar compra y limpiar carrito
+    fun confirmPurchase(context: Context) {
+        val items = _cartItems.value ?: emptyList()
+        val total = getTotal()
+
+        val purchase = Purchase(
+            items = items,
+            total = total,
+            timestamp = System.currentTimeMillis()
+        )
+
+        // Guardar compra en historial
+        PurchasePrefs.savePurchase(context, purchase)
+
+        // Limpiar carrito
+        CartPrefs.clearCart(context)
+
+        // Refresh del LiveData
+        loadCart(context)
     }
 }

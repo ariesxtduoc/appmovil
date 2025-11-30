@@ -20,6 +20,16 @@
         android:textStyle="bold"
         android:paddingTop="12dp" />
 
-
+    <!-- 🔥 BOTÓN PAGAR -->
+    <Button
+        android:id="@+id/btnPay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Pagar"
+        android:textAllCaps="false"
+        android:layout_marginTop="12dp"
+        android:backgroundTint="@android:color/holo_green_dark"
+        android:textColor="@android:color/white"
+        android:padding="12dp" />
 
 </LinearLayout>

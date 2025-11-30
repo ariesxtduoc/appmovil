@@ -23,7 +23,6 @@
             app:destination="@id/registerFragment" />
     </fragment>
 
-
     <!-- 2. REGISTRO -->
     <fragment
         android:id="@+id/registerFragment"
@@ -36,25 +35,21 @@
             app:destination="@id/loginFragment" />
     </fragment>
 
-
-    <!-- 3. HOME / CATÁLOGO -->
+    <!-- 3. HOME -->
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.example.appmovil.ui.theme.ui.home.HomeFragment"
         android:label="Catálogo"
         tools:layout="@layout/fragment_home">
 
-        <!-- ACCIÓN AL DETALLE DEL PRODUCTO -->
         <action
             android:id="@+id/action_homeFragment_to_productDetailFragment"
             app:destination="@id/productDetailFragment" />
 
-        <!-- ACCIÓN AL CARRITO ⭐ (NUEVO) -->
         <action
             android:id="@+id/action_homeFragment_to_cartFragment"
             app:destination="@id/cartFragment" />
     </fragment>
-
 
     <!-- 4. DETALLE DEL PRODUCTO -->
     <fragment
@@ -68,11 +63,23 @@
             app:argType="string" />
     </fragment>
 
-
-    <!-- 5. CARRITO ⭐ (NUEVO) -->
+    <!-- 5. CARRITO -->
     <fragment
         android:id="@+id/cartFragment"
         android:name="com.example.appmovil.ui.theme.ui.cart.CartFragment"
         android:label="Carrito"
-        tools:layout="@layout/fragment_cart" />
+        tools:layout="@layout/fragment_cart">
+
+        <!-- ⭐ Acción necesaria para el botón PAGAR -->
+        <action
+            android:id="@+id/action_cartFragment_to_orderSummaryFragment"
+            app:destination="@id/orderSummaryFragment" />
+    </fragment>
+
+    <!-- 6. RESUMEN DE COMPRA -->
+    <fragment
+        android:id="@+id/orderSummaryFragment"
+        android:name="com.example.appmovil.ui.theme.ui.cart.OrderSummaryFragment"
+        android:label="Resumen de compra"
+        tools:layout="@layout/fragment_order_summary" />
 </navigation>
