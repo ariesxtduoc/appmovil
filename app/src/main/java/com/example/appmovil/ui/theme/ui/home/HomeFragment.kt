@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.appmovil.R
 import com.example.appmovil.databinding.FragmentHomeBinding
 import com.example.appmovil.ui.theme.domain.model.ProductsData
 import com.example.appmovil.ui.theme.ui.adapter.ProductAdapter
@@ -28,11 +29,8 @@ class HomeFragment : Fragment() {
                 ).show()
             },
             onItemClick = { product ->
-
-                // Convertir el producto a JSON
                 val productoJson = Gson().toJson(product)
 
-                // Navegar al detalle usando Safe Args
                 val action = HomeFragmentDirections
                     .actionHomeFragmentToProductDetailFragment(productoJson)
 
@@ -52,9 +50,16 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // 👉 Botón para volver (popBackStack = ir atrás)
+        // Volver atrás
         binding.btnNavigateBack.setOnClickListener {
             findNavController().popBackStack()
+        }
+
+        // Botón del carrito → Navega al CartFragment
+        binding.btnCart.setOnClickListener {
+            findNavController().navigate(
+                HomeFragmentDirections.actionHomeFragmentToCartFragment()
+            )
         }
 
         setupRecyclerView()

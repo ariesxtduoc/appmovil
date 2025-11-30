@@ -48,6 +48,11 @@
         <action
             android:id="@+id/action_homeFragment_to_productDetailFragment"
             app:destination="@id/productDetailFragment" />
+
+        <!-- ACCIÓN AL CARRITO ⭐ (NUEVO) -->
+        <action
+            android:id="@+id/action_homeFragment_to_cartFragment"
+            app:destination="@id/cartFragment" />
     </fragment>
 
 
@@ -58,10 +63,16 @@
         android:label="Detalle Producto"
         tools:layout="@layout/fragment_product_detail">
 
-        <!-- Recibir parámetro -->
         <argument
             android:name="productoJson"
             app:argType="string" />
     </fragment>
 
+
+    <!-- 5. CARRITO ⭐ (NUEVO) -->
+    <fragment
+        android:id="@+id/cartFragment"
+        android:name="com.example.appmovil.ui.theme.ui.cart.CartFragment"
+        android:label="Carrito"
+        tools:layout="@layout/fragment_cart" />
 </navigation>
