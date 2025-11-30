@@ -28,10 +28,11 @@ class HomeFragment : Fragment() {
                 ).show()
             },
             onItemClick = { product ->
-                // Convertimos el producto a JSON
+
+                // Convertir el producto a JSON
                 val productoJson = Gson().toJson(product)
 
-                // Navegamos usando Safe Args (SIN NOMBRE DE PARAMETRO)
+                // Navegar al detalle usando Safe Args
                 val action = HomeFragmentDirections
                     .actionHomeFragmentToProductDetailFragment(productoJson)
 
@@ -51,7 +52,7 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Botón volver
+        // 👉 Botón para volver (popBackStack = ir atrás)
         binding.btnNavigateBack.setOnClickListener {
             findNavController().popBackStack()
         }

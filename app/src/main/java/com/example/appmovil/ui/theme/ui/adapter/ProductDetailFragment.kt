@@ -1,4 +1,5 @@
 package com.example.appmovil.ui.theme.ui.adapter
+import com.example.appmovil.ui.theme.ui.cart.CartPrefs
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -46,7 +47,8 @@ class ProductDetailFragment : Fragment() {
 
         // Botón agregar al carrito
         binding.btnAgregarCarrito.setOnClickListener {
-            Toast.makeText(requireContext(), "Producto agregado al carrito", Toast.LENGTH_SHORT).show()
+            CartPrefs.addProduct(requireContext(), product, 1)
+            Toast.makeText(requireContext(), "Agregado al carrito", Toast.LENGTH_SHORT).show()
         }
 
         // Botón volver
