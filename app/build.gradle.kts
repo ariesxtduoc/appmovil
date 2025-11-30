@@ -3,7 +3,6 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     id("androidx.navigation.safeargs")
-
 }
 
 android {
@@ -41,7 +40,7 @@ android {
 
     buildFeatures {
         compose = true
-        viewBinding = true
+        viewBinding = true   // ✅ YA ACTIVADO
     }
 }
 
@@ -59,17 +58,13 @@ dependencies {
     implementation(libs.androidx.navigation.ui.ktx)
     implementation("com.google.code.gson:gson:2.10.1")
 
-
-    // =========================================================================
-    // DEPENDENCIAS PARA MVVM Y viewModels()
+    // MVVM
     implementation("androidx.fragment:fragment-ktx:1.6.2")
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.7.0")
-    // =========================================================================
 
-    //  DEPENDENCIA PARA GLIDE (CARGA DE IMÁGENES)
+    // Glide
     implementation("com.github.bumptech.glide:glide:4.16.0")
     annotationProcessor("com.github.bumptech.glide:compiler:4.16.0")
-    // =========================================================================
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

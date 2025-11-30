@@ -11,6 +11,7 @@ object PurchasePrefs {
 
     private val gson = Gson()
 
+    // Guarda una compra nueva al final del historial
     fun savePurchase(context: Context, purchase: Purchase) {
         val list = getPurchases(context).toMutableList()
         list.add(purchase)
@@ -23,6 +24,7 @@ object PurchasePrefs {
             .apply()
     }
 
+    // Obtiene la lista de compras guardadas
     fun getPurchases(context: Context): List<Purchase> {
         val prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
         val json = prefs.getString(KEY_PURCHASES, null) ?: return emptyList()
