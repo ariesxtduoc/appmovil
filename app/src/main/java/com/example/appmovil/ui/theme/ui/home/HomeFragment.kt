@@ -1,7 +1,6 @@
 package com.example.appmovil.ui.theme.ui.home
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,10 +8,10 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.appmovil.R
 import com.example.appmovil.databinding.FragmentHomeBinding
 import com.example.appmovil.ui.theme.domain.model.ProductsData
 import com.example.appmovil.ui.theme.ui.adapter.ProductAdapter
+import com.google.gson.Gson
 
 class HomeFragment : Fragment() {
 
@@ -20,10 +19,25 @@ class HomeFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val productAdapter by lazy {
-        ProductAdapter { product ->
-            Toast.makeText(context, "Agregado al carrito: ${product.name}", Toast.LENGTH_SHORT).show()
-            Log.d("HomeFragment", "Producto agregado: ${product.name}")
-        }
+        ProductAdapter(
+            onAddToCartClick = { product ->
+                Toast.makeText(
+                    requireContext(),
+                    "Agregado al carrito: ${product.name}",
+                    Toast.LENGTH_SHORT
+                ).show()
+            },
+            onItemClick = { product ->
+                // Convertimos el producto a JSON
+                val productoJson = Gson().toJson(product)
+
+                // Navegamos usando Safe Args (SIN NOMBRE DE PARAMETRO)
+                val action = HomeFragmentDirections
+                    .actionHomeFragmentToProductDetailFragment(productoJson)
+
+                findNavController().navigate(action)
+            }
+        )
     }
 
     override fun onCreateView(
@@ -37,8 +51,9 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // Botón volver
         binding.btnNavigateBack.setOnClickListener {
-            findNavController().navigate(R.id.loginFragment)
+            findNavController().popBackStack()
         }
 
         setupRecyclerView()
@@ -47,17 +62,13 @@ class HomeFragment : Fragment() {
 
     private fun setupRecyclerView() {
         binding.rvProductList.apply {
-            layoutManager = LinearLayoutManager(context)
+            layoutManager = LinearLayoutManager(requireContext())
             adapter = productAdapter
         }
     }
 
-    /**
-     * Lista REAL de productos HuertoHogar
-     */
     private fun loadProducts() {
         productAdapter.submitList(ProductsData.productList)
-
     }
 
     override fun onDestroyView() {

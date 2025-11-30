@@ -8,7 +8,8 @@ import com.example.appmovil.databinding.ItemProductBinding
 import com.example.appmovil.ui.theme.domain.model.Product
 
 class ProductAdapter(
-    private val onAddToCartClick: (Product) -> Unit
+    private val onAddToCartClick: (Product) -> Unit,
+    private val onItemClick: (Product) -> Unit   // 👈 NUEVO LISTENER
 ) : RecyclerView.Adapter<ProductAdapter.ProductViewHolder>() {
 
     private var productList: List<Product> = emptyList()
@@ -18,24 +19,30 @@ class ProductAdapter(
 
         fun bind(product: Product) {
 
-            // Cargar imagen con Glide (CORREGIDO)
+            // Imagen
             Glide.with(binding.root.context)
                 .load(product.imageUrl)
-                .placeholder(android.R.drawable.ic_menu_gallery)    // imagen mientras carga
-                .error(android.R.drawable.ic_menu_report_image)     // imagen si falla
+                .placeholder(android.R.drawable.ic_menu_gallery)
+                .error(android.R.drawable.ic_menu_report_image)
                 .centerCrop()
                 .into(binding.imgProducto)
 
-            // Nombre
+            // Nombre y precio
             binding.txtNombreProducto.text = product.name
-
-            // Precio formateado
             binding.txtPrecioProducto.text = "$${product.price}"
 
-            // Click
+            // 👇 CLICK EN TODA LA TARJETA → DETALLE
             binding.root.setOnClickListener {
-                onAddToCartClick(product)
+                onItemClick(product)
             }
+
+            // 👇 SI TIENES BOTÓN "AGREGAR AL CARRITO" AQUÍ IRÍA
+            // binding.btnAddToCart.setOnClickListener {
+            //     onAddToCartClick(product)
+            // }
+
+            // 👉 Pero como NO existe aún, mantengo tu lógica actual:
+            //    Agregar al carrito ocurre en HomeFragment, no aquí.
         }
     }
 

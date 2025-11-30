@@ -1,8 +1,7 @@
 package com.example.appmovil.ui.theme.domain.model
 
-/**
- * Clase de datos que representa un producto del catálogo HuertoHogar.
- */
+import java.io.Serializable
+
 data class Product(
     val id: String = "",
     val name: String = "",
@@ -10,4 +9,4 @@ data class Product(
     val price: Double = 0.0,
     val unit: String = "",
     val imageUrl: String = ""
-)
+) : Serializable

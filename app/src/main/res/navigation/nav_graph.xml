@@ -5,39 +5,63 @@
     android:id="@+id/nav_graph"
     app:startDestination="@id/loginFragment">
 
-    <!-- 1. DESTINO: Pantalla de Login -->
+    <!-- 1. LOGIN -->
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.example.appmovil.ui.theme.ui.login.LoginFragment"
         android:label="Login"
         tools:layout="@layout/fragment_login">
 
-        <!-- ACCIÓN DE NAVEGACIÓN A CATÁLOGO -->
         <action
             android:id="@+id/action_loginFragment_to_homeFragment"
             app:destination="@id/homeFragment"
             app:popUpTo="@id/loginFragment"
             app:popUpToInclusive="true" />
+
+        <action
+            android:id="@+id/action_loginFragment_to_registerFragment"
+            app:destination="@id/registerFragment" />
     </fragment>
 
-    <!-- 2. DESTINO: Pantalla del Catálogo (Home) -->
-    <fragment
-        android:id="@+id/homeFragment"
-        android:name="com.example.appmovil.ui.theme.ui.home.HomeFragment"
-        android:label="fragment_home"
-        tools:layout="@layout/fragment_home" />
 
-
+    <!-- 2. REGISTRO -->
     <fragment
         android:id="@+id/registerFragment"
         android:name="com.example.appmovil.ui.theme.ui.login.RegisterFragment"
         android:label="Registro"
-        tools:layout="@layout/fragment_register" />
+        tools:layout="@layout/fragment_register">
 
-    <action
-        android:id="@+id/action_loginFragment_to_registerFragment"
-        app:destination="@id/registerFragment" />
+        <action
+            android:id="@+id/action_registerFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
 
 
+    <!-- 3. HOME / CATÁLOGO -->
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.example.appmovil.ui.theme.ui.home.HomeFragment"
+        android:label="Catálogo"
+        tools:layout="@layout/fragment_home">
+
+        <!-- ACCIÓN AL DETALLE DEL PRODUCTO -->
+        <action
+            android:id="@+id/action_homeFragment_to_productDetailFragment"
+            app:destination="@id/productDetailFragment" />
+    </fragment>
+
+
+    <!-- 4. DETALLE DEL PRODUCTO -->
+    <fragment
+        android:id="@+id/productDetailFragment"
+        android:name="com.example.appmovil.ui.theme.ui.adapter.ProductDetailFragment"
+        android:label="Detalle Producto"
+        tools:layout="@layout/fragment_product_detail">
+
+        <!-- Recibir parámetro -->
+        <argument
+            android:name="productoJson"
+            app:argType="string" />
+    </fragment>
 
 </navigation>
