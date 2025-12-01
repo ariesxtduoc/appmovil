@@ -5,9 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.appmovil.R
 import com.example.appmovil.databinding.FragmentOrderSummaryBinding
-import com.example.appmovil.ui.theme.ui.cart.PurchasePrefs
 
 class OrderSummaryFragment : Fragment() {
 
@@ -26,11 +27,15 @@ class OrderSummaryFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // 🔙 Botón volver (igual que en CartFragment)
+        binding.btnBackOrderSummary.setOnClickListener {
+            findNavController().popBackStack()
+        }
+
         val lastPurchase = PurchasePrefs.getPurchases(requireContext()).lastOrNull()
 
         if (lastPurchase != null) {
 
-            // Adaptador para listar los productos comprados
             summaryAdapter = SummaryAdapter(lastPurchase.items)
 
             binding.recyclerSummary.apply {
@@ -38,15 +43,15 @@ class OrderSummaryFragment : Fragment() {
                 adapter = summaryAdapter
             }
 
-            // Mostrar total
             binding.summaryTotal.text = "Total pagado: $${lastPurchase.total}"
 
         } else {
             binding.summaryTotal.text = "No hay compras registradas."
         }
 
+        // 🔚 Botón Finalizar → volver a HomeFragment (no al anterior)
         binding.btnFinalizar.setOnClickListener {
-            requireActivity().onBackPressedDispatcher.onBackPressed()
+            findNavController().popBackStack(R.id.homeFragment, false)
         }
     }
 }

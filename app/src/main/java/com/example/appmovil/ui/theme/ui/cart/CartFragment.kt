@@ -18,7 +18,7 @@ class CartFragment : Fragment() {
     private val cartViewModel: CartViewModel by viewModels()
     private lateinit var adapter: CartAdapter
 
-    // 🔹 ID del usuario actual (ajústalo según tu sesión o ViewModel)
+    // 🔹 ID del usuario actual
     private val currentUserId = "usuario123"
 
     override fun onCreateView(
@@ -31,6 +31,12 @@ class CartFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
+        // 🔙 Botón volver
+        binding.btnBackCart.setOnClickListener {
+            findNavController().popBackStack()
+        }
+
         adapter = CartAdapter(
             onIncrease = { item ->
                 cartViewModel.updateQuantity(
@@ -59,7 +65,7 @@ class CartFragment : Fragment() {
         binding.recyclerCart.layoutManager = LinearLayoutManager(requireContext())
         binding.recyclerCart.adapter = adapter
 
-        // Cargar carrito del usuario actual
+        // Cargar carrito
         cartViewModel.loadCart(requireContext(), currentUserId)
 
         cartViewModel.cartItems.observe(viewLifecycleOwner) { items ->
@@ -67,7 +73,7 @@ class CartFragment : Fragment() {
             binding.tvTotal.text = "Total: $${cartViewModel.getTotal(currentUserId)}"
         }
 
-        // 🔥 BOTÓN PAGAR
+        // ✔ Botón pagar
         binding.btnPay.setOnClickListener {
 
             val items = cartViewModel.cartItems.value ?: emptyList()
@@ -78,7 +84,7 @@ class CartFragment : Fragment() {
                 return@setOnClickListener
             }
 
-            // ✔ Registrar la compra en historial
+            // Guardar compra
             val purchase = Purchase(
                 userId = currentUserId,
                 items = items,
@@ -86,13 +92,13 @@ class CartFragment : Fragment() {
             )
             PurchasePrefs.savePurchase(requireContext(), purchase)
 
-            // ✔ Vaciar carrito del usuario
+            // Vaciar carrito
             CartPrefs.clearCart(requireContext(), currentUserId)
             cartViewModel.loadCart(requireContext(), currentUserId)
 
             Toast.makeText(requireContext(), "Compra realizada", Toast.LENGTH_SHORT).show()
 
-            // ✔ Navegar al resumen
+            // Navegar al resumen
             findNavController().navigate(R.id.action_cartFragment_to_orderSummaryFragment)
         }
     }

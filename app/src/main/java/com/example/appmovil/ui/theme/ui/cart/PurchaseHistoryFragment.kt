@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.appmovil.databinding.FragmentPurchaseHistoryBinding
 
@@ -26,7 +27,12 @@ class PurchaseHistoryFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Obtener historial de compras desde SharedPreferences
+        // 🔙 Botón volver (igual estilo que CartFragment)
+        binding.btnBackPurchaseHistory.setOnClickListener {
+            findNavController().popBackStack()
+        }
+
+        // Obtener historial de compras
         val purchases = PurchasePrefs.getPurchases(requireContext()).reversed()
 
         // Configurar RecyclerView
@@ -36,7 +42,7 @@ class PurchaseHistoryFragment : Fragment() {
             adapter = historyAdapter
         }
 
-        // Mostrar u ocultar mensaje cuando no hay compras
+        // Mostrar u ocultar mensaje
         binding.tvNoPurchases.visibility = if (purchases.isEmpty()) View.VISIBLE else View.GONE
     }
 
