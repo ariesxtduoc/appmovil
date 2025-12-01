@@ -8,7 +8,6 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.appmovil.R
 import com.example.appmovil.databinding.FragmentHomeBinding
 import com.example.appmovil.ui.theme.domain.model.ProductsData
 import com.example.appmovil.ui.theme.ui.adapter.ProductAdapter
@@ -30,10 +29,8 @@ class HomeFragment : Fragment() {
             },
             onItemClick = { product ->
                 val productoJson = Gson().toJson(product)
-
                 val action = HomeFragmentDirections
                     .actionHomeFragmentToProductDetailFragment(productoJson)
-
                 findNavController().navigate(action)
             }
         )
@@ -62,10 +59,17 @@ class HomeFragment : Fragment() {
             )
         }
 
-        // ▶️ AGREGADO: IR AL HISTORIAL DE COMPRAS
+        // Ir al historial de compras
         binding.btnPurchaseHistory.setOnClickListener {
             findNavController().navigate(
                 HomeFragmentDirections.actionHomeFragmentToPurchaseHistoryFragment()
+            )
+        }
+
+        // Ir al perfil de usuario
+        binding.btnUser.setOnClickListener {
+            findNavController().navigate(
+                HomeFragmentDirections.actionHomeFragmentToProfileFragment()
             )
         }
 

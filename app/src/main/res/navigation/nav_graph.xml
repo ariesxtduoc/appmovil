@@ -50,10 +50,14 @@
             android:id="@+id/action_homeFragment_to_cartFragment"
             app:destination="@id/cartFragment" />
 
-        <!-- ⭐ NUEVA ACCIÓN: IR AL HISTORIAL DE COMPRAS -->
         <action
             android:id="@+id/action_homeFragment_to_purchaseHistoryFragment"
             app:destination="@id/purchaseHistoryFragment" />
+
+        <!-- Perfil de usuario -->
+        <action
+            android:id="@+id/action_homeFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
     </fragment>
 
     <!-- 4. DETALLE DEL PRODUCTO -->
@@ -75,7 +79,6 @@
         android:label="Carrito"
         tools:layout="@layout/fragment_cart">
 
-        <!-- ⭐ Acción necesaria para el botón PAGAR -->
         <action
             android:id="@+id/action_cartFragment_to_orderSummaryFragment"
             app:destination="@id/orderSummaryFragment" />
@@ -88,11 +91,17 @@
         android:label="Resumen de compra"
         tools:layout="@layout/fragment_order_summary" />
 
-    <!-- ⭐ 7. HISTORIAL DE COMPRAS -->
+    <!-- 7. HISTORIAL DE COMPRAS -->
     <fragment
         android:id="@+id/purchaseHistoryFragment"
         android:name="com.example.appmovil.ui.theme.ui.cart.PurchaseHistoryFragment"
         android:label="Historial de Compras"
         tools:layout="@layout/fragment_purchase_history" />
 
+    <!-- 8. PERFIL DE USUARIO -->
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.example.appmovil.ui.theme.ui.profile.ProfileFragment"
+        android:label="Perfil de Usuario"
+        tools:layout="@layout/fragment_profile" />
 </navigation>

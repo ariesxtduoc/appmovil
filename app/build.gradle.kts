@@ -2,7 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
-    id("androidx.navigation.safeargs")
+    id("androidx.navigation.safeargs.kotlin") // Safe Args
 }
 
 android {
@@ -40,7 +40,7 @@ android {
 
     buildFeatures {
         compose = true
-        viewBinding = true   // ✅ YA ACTIVADO
+        viewBinding = true
     }
 }
 
@@ -54,8 +54,12 @@ dependencies {
     implementation(libs.androidx.compose.ui.graphics)
     implementation(libs.androidx.compose.ui.tooling.preview)
     implementation(libs.androidx.compose.material3)
+
+    // Navigation Component (correcto)
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
+
+    // Gson
     implementation("com.google.code.gson:gson:2.10.1")
 
     // MVVM
@@ -66,6 +70,7 @@ dependencies {
     implementation("com.github.bumptech.glide:glide:4.16.0")
     annotationProcessor("com.github.bumptech.glide:compiler:4.16.0")
 
+    // Tests
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
