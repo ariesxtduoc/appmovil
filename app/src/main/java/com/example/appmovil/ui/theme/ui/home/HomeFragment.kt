@@ -55,10 +55,17 @@ class HomeFragment : Fragment() {
             findNavController().popBackStack()
         }
 
-        // Botón del carrito → Navega al CartFragment
+        // Ir al carrito
         binding.btnCart.setOnClickListener {
             findNavController().navigate(
                 HomeFragmentDirections.actionHomeFragmentToCartFragment()
+            )
+        }
+
+        // ▶️ AGREGADO: IR AL HISTORIAL DE COMPRAS
+        binding.btnPurchaseHistory.setOnClickListener {
+            findNavController().navigate(
+                HomeFragmentDirections.actionHomeFragmentToPurchaseHistoryFragment()
             )
         }
 

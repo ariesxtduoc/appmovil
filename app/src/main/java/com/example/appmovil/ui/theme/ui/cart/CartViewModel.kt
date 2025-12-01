@@ -10,42 +10,46 @@ class CartViewModel : ViewModel() {
     private val _cartItems = MutableLiveData<List<CartItem>>()
     val cartItems: LiveData<List<CartItem>> get() = _cartItems
 
-    fun loadCart(context: Context) {
-        _cartItems.value = CartPrefs.getCart(context)
+    // Cargar carrito filtrado por usuario
+    fun loadCart(context: Context, userId: String) {
+        _cartItems.value = CartPrefs.getCart(context, userId)
     }
 
-    fun updateQuantity(context: Context, productId: String, quantity: Int) {
-        CartPrefs.updateQuantity(context, productId, quantity)
-        loadCart(context)
+    // Actualizar cantidad de un producto para un usuario específico
+    fun updateQuantity(context: Context, productId: String, quantity: Int, userId: String) {
+        CartPrefs.updateQuantity(context, productId, quantity, userId)
+        loadCart(context, userId)
     }
 
-    fun removeItem(context: Context, productId: String) {
-        CartPrefs.removeProduct(context, productId)
-        loadCart(context)
+    // Eliminar un producto del carrito de un usuario específico
+    fun removeItem(context: Context, productId: String, userId: String) {
+        CartPrefs.removeProduct(context, productId, userId)
+        loadCart(context, userId)
     }
 
-    fun getTotal(): Double {
+    // Calcular total del carrito de un usuario específico
+    fun getTotal(userId: String): Double {
         return _cartItems.value?.sumOf { it.product.price * it.quantity } ?: 0.0
     }
 
-    // 🔥 Registrar compra y limpiar carrito
-    fun confirmPurchase(context: Context) {
+    // Registrar compra y limpiar carrito para un usuario específico
+    fun confirmPurchase(context: Context, userId: String) {
         val items = _cartItems.value ?: emptyList()
-        val total = getTotal()
+        val total = getTotal(userId)
 
         val purchase = Purchase(
+            userId = userId,
             items = items,
-            total = total,
-            timestamp = System.currentTimeMillis()
+            total = total
         )
 
         // Guardar compra en historial
         PurchasePrefs.savePurchase(context, purchase)
 
-        // Limpiar carrito
-        CartPrefs.clearCart(context)
+        // Limpiar carrito del usuario
+        CartPrefs.clearCart(context, userId)
 
-        // Refresh del LiveData
-        loadCart(context)
+        // Refrescar LiveData
+        loadCart(context, userId)
     }
 }

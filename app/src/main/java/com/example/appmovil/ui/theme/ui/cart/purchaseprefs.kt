@@ -11,25 +11,47 @@ object PurchasePrefs {
 
     private val gson = Gson()
 
-    // Guarda una compra nueva al final del historial
+    // Guardar una compra
     fun savePurchase(context: Context, purchase: Purchase) {
+        // Obtener historial previo
         val list = getPurchases(context).toMutableList()
+
+        // Agregar nueva compra
         list.add(purchase)
 
+        // Convertir a JSON
         val json = gson.toJson(list)
 
+        // Guardar en SharedPreferences
         context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
             .edit()
             .putString(KEY_PURCHASES, json)
             .apply()
     }
 
-    // Obtiene la lista de compras guardadas
+    // Obtener todas las compras
     fun getPurchases(context: Context): List<Purchase> {
         val prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
         val json = prefs.getString(KEY_PURCHASES, null) ?: return emptyList()
 
         val type = object : TypeToken<List<Purchase>>() {}.type
-        return gson.fromJson(json, type)
+        return try {
+            gson.fromJson(json, type)
+        } catch (e: Exception) {
+            emptyList() // Evita crash si JSON está corrupto
+        }
+    }
+
+    // Obtener compras filtradas por usuario
+    fun getPurchasesForUser(context: Context, userId: String): List<Purchase> {
+        return getPurchases(context).filter { it.userId == userId }
+    }
+
+    // Limpiar historial completo (opcional)
+    fun clearAllPurchases(context: Context) {
+        context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+            .edit()
+            .remove(KEY_PURCHASES)
+            .apply()
     }
 }

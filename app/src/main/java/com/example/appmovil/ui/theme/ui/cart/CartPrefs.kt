@@ -12,26 +12,29 @@ object CartPrefs {
 
     private val gson = Gson()
 
-    // Obtener carrito completo
-    fun getCart(context: Context): MutableList<CartItem> {
+    // Construye la clave por usuario
+    private fun getKey(userId: String) = "${KEY_CART}_$userId"
+
+    // Obtener carrito del usuario
+    fun getCart(context: Context, userId: String): MutableList<CartItem> {
         val prefs = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
-        val json = prefs.getString(KEY_CART, null) ?: return mutableListOf()
+        val json = prefs.getString(getKey(userId), null) ?: return mutableListOf()
         val type = object : TypeToken<MutableList<CartItem>>() {}.type
         return gson.fromJson(json, type) ?: mutableListOf()
     }
 
-    // Guardar carrito completo
-    private fun saveCart(context: Context, items: List<CartItem>) {
+    // Guardar carrito del usuario
+    private fun saveCart(context: Context, items: List<CartItem>, userId: String) {
         val json = gson.toJson(items)
         context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
             .edit()
-            .putString(KEY_CART, json)
+            .putString(getKey(userId), json)
             .apply()
     }
 
-    // Agregar producto (si ya existe aumenta cantidad)
-    fun addProduct(context: Context, product: Product, qty: Int = 1) {
-        val cart = getCart(context)
+    // Agregar producto al carrito del usuario
+    fun addProduct(context: Context, product: Product, qty: Int = 1, userId: String) {
+        val cart = getCart(context, userId)
         val existingIndex = cart.indexOfFirst { it.product.id == product.id }
 
         if (existingIndex >= 0) {
@@ -40,18 +43,18 @@ object CartPrefs {
             cart.add(CartItem(product, qty))
         }
 
-        saveCart(context, cart)
+        saveCart(context, cart, userId)
     }
 
-    // Remover producto completo
-    fun removeProduct(context: Context, productId: String) {
-        val cart = getCart(context).filter { it.product.id != productId }
-        saveCart(context, cart)
+    // Remover producto del carrito del usuario
+    fun removeProduct(context: Context, productId: String, userId: String) {
+        val cart = getCart(context, userId).filter { it.product.id != productId }
+        saveCart(context, cart, userId)
     }
 
-    // Cambiar cantidad
-    fun updateQuantity(context: Context, productId: String, qty: Int) {
-        val cart = getCart(context)
+    // Cambiar cantidad de un producto del carrito del usuario
+    fun updateQuantity(context: Context, productId: String, qty: Int, userId: String) {
+        val cart = getCart(context, userId)
         val index = cart.indexOfFirst { it.product.id == productId }
 
         if (index >= 0) {
@@ -60,20 +63,20 @@ object CartPrefs {
             } else {
                 cart[index].quantity = qty
             }
-            saveCart(context, cart)
+            saveCart(context, cart, userId)
         }
     }
 
-    // Vaciar carrito
-    fun clearCart(context: Context) {
+    // Vaciar carrito del usuario
+    fun clearCart(context: Context, userId: String) {
         context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
             .edit()
-            .remove(KEY_CART)
+            .remove(getKey(userId))
             .apply()
     }
 
-    // Obtener total del carrito
-    fun getTotal(context: Context): Double {
-        return getCart(context).sumOf { it.product.price * it.quantity }
+    // Obtener total del carrito del usuario
+    fun getTotal(context: Context, userId: String): Double {
+        return getCart(context, userId).sumOf { it.product.price * it.quantity }
     }
 }

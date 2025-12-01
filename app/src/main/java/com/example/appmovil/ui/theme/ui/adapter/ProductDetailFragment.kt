@@ -1,6 +1,6 @@
 package com.example.appmovil.ui.theme.ui.adapter
-import com.example.appmovil.ui.theme.ui.cart.CartPrefs
 
+import com.example.appmovil.ui.theme.ui.cart.CartPrefs
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -20,6 +20,9 @@ class ProductDetailFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val args: ProductDetailFragmentArgs by navArgs()
+
+    // Aquí obtienes el ID del usuario actual (ajústalo según tu implementación)
+    private val currentUserId = "usuario123" // reemplaza con ViewModel de usuario o sesión
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -47,7 +50,7 @@ class ProductDetailFragment : Fragment() {
 
         // Botón agregar al carrito
         binding.btnAgregarCarrito.setOnClickListener {
-            CartPrefs.addProduct(requireContext(), product, 1)
+            CartPrefs.addProduct(requireContext(), product, 1, currentUserId)
             Toast.makeText(requireContext(), "Agregado al carrito", Toast.LENGTH_SHORT).show()
         }
 
