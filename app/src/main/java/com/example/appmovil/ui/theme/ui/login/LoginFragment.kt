@@ -2,12 +2,9 @@ package com.example.appmovil.ui.theme.ui.login
 
 import android.content.Context
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -51,7 +48,7 @@ class LoginFragment : Fragment() {
             attemptLogin(email, password)
         }
 
-        // Botón ir a REGISTRO
+        // Ir al REGISTRO
         binding.tvGoRegister.setOnClickListener {
             findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
         }
@@ -66,21 +63,12 @@ class LoginFragment : Fragment() {
                 Toast.makeText(context, "Completa todos los campos", Toast.LENGTH_SHORT).show()
             }
             email == savedEmail && password == savedPassword -> {
-                // Login correcto
                 findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
             }
             else -> {
                 Toast.makeText(context, "Correo o contraseña incorrectos", Toast.LENGTH_SHORT).show()
             }
         }
-    }
-
-    private fun EditText.afterTextChanged(action: (String) -> Unit) {
-        this.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
-            override fun afterTextChanged(s: Editable?) { action(s.toString()) }
-        })
     }
 
     override fun onDestroyView() {

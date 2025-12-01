@@ -1,6 +1,5 @@
 package com.example.appmovil.ui.theme.ui.login
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,19 +7,17 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.example.appmovil.R
 import com.example.appmovil.databinding.FragmentRegisterBinding
+import com.example.appmovil.ui.theme.data.data.dataU.SessionManager
 
 class RegisterFragment : Fragment() {
 
     private var _binding: FragmentRegisterBinding? = null
     private val binding get() = _binding!!
 
-    // Nombre del SharedPreferences único
-    private val prefsName = "user_prefs"
-
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
+        inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentRegisterBinding.inflate(inflater, container, false)
@@ -30,19 +27,16 @@ class RegisterFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // 🔙 Botón VOLVER
         binding.btnBack.setOnClickListener {
-            findNavController().popBackStack()
+            findNavController().navigateUp()
         }
 
-        // 🔹 Botón REGISTRAR
         binding.btnRegister.setOnClickListener {
             val name = binding.etName.text.toString().trim()
             val email = binding.etEmail.text.toString().trim()
             val password = binding.etPassword.text.toString()
             val confirmPassword = binding.etConfirmPassword.text.toString()
 
-            // Validaciones básicas
             if (name.isEmpty() || email.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
                 Toast.makeText(context, "Todos los campos son obligatorios", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
@@ -53,19 +47,19 @@ class RegisterFragment : Fragment() {
                 return@setOnClickListener
             }
 
-            // Guardar usuario en SharedPreferences (sobrescribe siempre)
-            val sharedPref = requireActivity().getSharedPreferences(prefsName, Context.MODE_PRIVATE)
-            sharedPref.edit().apply {
-                putString("user_name", name)
-                putString("user_email", email)
-                putString("user_password", password)
-                apply()
-            }
+            // Registrar usuario
+            val session = SessionManager(requireContext())
+            session.saveUser(
+                name = name,
+                email = email,
+                password = password,
+                address = "",
+                phone = ""
+            )
 
             Toast.makeText(context, "Registro exitoso", Toast.LENGTH_SHORT).show()
 
-            // Volver al login
-            findNavController().popBackStack()
+            findNavController().navigate(R.id.action_registerFragment_to_loginFragment)
         }
     }
 

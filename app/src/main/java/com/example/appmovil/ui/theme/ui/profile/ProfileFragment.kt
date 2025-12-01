@@ -8,11 +8,13 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.appmovil.databinding.FragmentProfileBinding
+import com.example.appmovil.ui.theme.data.data.dataU.SessionManager
 
 class ProfileFragment : Fragment() {
 
     private var _binding: FragmentProfileBinding? = null
     private val binding get() = _binding!!
+    private lateinit var session: SessionManager
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -25,32 +27,30 @@ class ProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        session = SessionManager(requireContext())
         loadUserData()
 
         binding.btnSave.setOnClickListener {
-            val updatedUser = User(
-                name = binding.etName.text.toString(),
-                email = binding.etEmail.text.toString(),
-                address = binding.etAddress.text.toString(),
-                phone = binding.etPhone.text.toString()
-            )
-            UserPrefs.saveUser(requireContext(), updatedUser)
+            val name = binding.etName.text.toString()
+            val email = binding.etEmail.text.toString()
+            val address = binding.etAddress.text.toString()
+            val phone = binding.etPhone.text.toString()
+
+            session.updateUser(name, email, address, phone)
+
             Toast.makeText(requireContext(), "Perfil actualizado", Toast.LENGTH_SHORT).show()
         }
 
-        // -------------- BOTÓN DE REGRESO ------------------
         binding.btnBack.setOnClickListener {
             findNavController().navigateUp()
         }
-        // --------------------------------------------------
     }
 
     private fun loadUserData() {
-        val user = UserPrefs.getUser(requireContext())
-        binding.etName.setText(user.name)
-        binding.etEmail.setText(user.email)
-        binding.etAddress.setText(user.address)
-        binding.etPhone.setText(user.phone)
+        binding.etName.setText(session.getName())
+        binding.etEmail.setText(session.getEmail())
+        binding.etAddress.setText(session.getAddress())
+        binding.etPhone.setText(session.getPhone())
     }
 
     override fun onDestroyView() {
