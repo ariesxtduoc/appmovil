@@ -57,10 +57,12 @@ class LoginFragment : Fragment() {
         }
     }
 
+    // ⭐ FUNCIÓN CORREGIDA
     private fun attemptLogin(email: String, password: String) {
         val savedEmail = prefs.getString("user_email", null)
         val savedPassword = prefs.getString("user_password", null)
         val savedName = prefs.getString("user_name", "Usuario") ?: "Usuario"
+        val savedAddress = prefs.getString("user_address", "") ?: "" // ✅ Dirección guardada o vacía
 
         when {
             email.isEmpty() || password.isEmpty() -> {
@@ -70,7 +72,7 @@ class LoginFragment : Fragment() {
             email == savedEmail && password == savedPassword -> {
 
                 // ⭐ GUARDAR DATOS DEL USUARIO LOGUEADO
-                UserPrefs.saveUser(requireContext(), savedName, savedEmail!!)
+                UserPrefs.saveUser(requireContext(), savedName, savedEmail!!, savedAddress)
 
                 findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
             }
