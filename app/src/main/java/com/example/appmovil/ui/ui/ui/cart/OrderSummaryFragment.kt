@@ -31,7 +31,7 @@ class OrderSummaryFragment : Fragment() {
             findNavController().popBackStack()
         }
 
-        // 🧾 Obtener la última compra guardada
+        // Obtener la última compra guardada
         val lastPurchase = PurchasePrefs.getPurchases(requireContext()).lastOrNull()
 
         if (lastPurchase != null) {
@@ -49,7 +49,7 @@ class OrderSummaryFragment : Fragment() {
             binding.summaryTotal.text = "No hay compras registradas."
         }
 
-        // ⭐ FINALIZAR → Ir al estado del pedido usando Safe Args
+        //  FINALIZAR
         binding.btnFinalizar.setOnClickListener {
             val action = OrderSummaryFragmentDirections
                 .actionOrderSummaryFragmentToOrderStatusFragment()

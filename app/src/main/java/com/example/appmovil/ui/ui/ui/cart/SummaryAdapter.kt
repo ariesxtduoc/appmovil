@@ -24,9 +24,7 @@ class SummaryAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = items[position]
 
-        // CAMBIOS IMPORTANTES:
-        // nombre -> name
-        // precio -> price
+
         holder.binding.txtProducto.text = item.product.name
         holder.binding.txtCantidad.text = "x${item.quantity}"
         holder.binding.txtSubtotal.text = "$${item.product.price * item.quantity}"

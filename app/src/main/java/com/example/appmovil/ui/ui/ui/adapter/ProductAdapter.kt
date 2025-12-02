@@ -36,13 +36,7 @@ class ProductAdapter(
                 onItemClick(product)
             }
 
-            // 👇 SI TIENES BOTÓN "AGREGAR AL CARRITO" AQUÍ IRÍA
-            // binding.btnAddToCart.setOnClickListener {
-            //     onAddToCartClick(product)
-            // }
 
-            // 👉 Pero como NO existe aún, mantengo tu lógica actual:
-            //    Agregar al carrito ocurre en HomeFragment, no aquí.
         }
     }
 

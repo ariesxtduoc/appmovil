@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:padding="16dp">
 
-    <!-- 🔙 Botón de regreso -->
+    <!--  Botón de regreso -->
     <ImageView
         android:id="@+id/btnBack"
         android:layout_width="24dp"

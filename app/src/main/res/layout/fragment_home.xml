@@ -64,7 +64,7 @@
         app:layout_constraintEnd_toStartOf="@id/btnUser"
         tools:text="Catálogo de Productos" />
 
-    <!-- ⭐ BOTÓN HISTORIAL DE COMPRAS (AGREGADO) -->
+    <!--  BOTÓN HISTORIAL DE COMPRAS (AGREGADO) -->
     <Button
         android:id="@+id/btnPurchaseHistory"
         android:layout_width="wrap_content"

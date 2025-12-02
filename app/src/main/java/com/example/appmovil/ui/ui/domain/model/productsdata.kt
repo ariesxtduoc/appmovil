@@ -1,8 +1,6 @@
 package com.example.appmovil.ui.ui.domain.model
 
-/**
- * Objeto que contiene la lista completa de productos del catálogo HuertoHogar.
- */
+
 object ProductsData {
 
     val productList: List<Product> = listOf(

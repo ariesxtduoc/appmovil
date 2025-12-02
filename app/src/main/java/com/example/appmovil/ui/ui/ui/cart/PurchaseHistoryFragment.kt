@@ -27,7 +27,7 @@ class PurchaseHistoryFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // 🔙 Botón volver (igual estilo que CartFragment)
+        //  Botón volver
         binding.btnBackPurchaseHistory.setOnClickListener {
             findNavController().popBackStack()
         }

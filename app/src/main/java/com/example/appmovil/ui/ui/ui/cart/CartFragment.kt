@@ -18,7 +18,7 @@ class CartFragment : Fragment() {
     private val cartViewModel: CartViewModel by viewModels()
     private lateinit var adapter: CartAdapter
 
-    // 🔹 ID del usuario actual
+    //  ID del usuario actual
     private val currentUserId = "usuario123"
 
     override fun onCreateView(
@@ -73,7 +73,7 @@ class CartFragment : Fragment() {
             binding.tvTotal.text = "Total: $${cartViewModel.getTotal(currentUserId)}"
         }
 
-        // ✔ Botón pagar
+        //  Botón pagar
         binding.btnPay.setOnClickListener {
 
             val items = cartViewModel.cartItems.value ?: emptyList()

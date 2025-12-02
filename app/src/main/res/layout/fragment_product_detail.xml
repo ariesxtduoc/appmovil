@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <!-- 🔙 BOTÓN VOLVER -->
+        <!--  BOTÓN VOLVER -->
         <Button
             android:id="@+id/btnVolver"
             android:text="◀ Volver"

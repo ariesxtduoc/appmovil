@@ -6,7 +6,7 @@
     android:orientation="vertical"
     android:padding="16dp">
 
-    <!-- 🔙 Botón Volver -->
+    <!--  Botón Volver -->
     <ImageButton
         android:id="@+id/btnBackCart"
         android:layout_width="40dp"
@@ -17,7 +17,7 @@
         app:tint="@android:color/black"
         android:layout_marginBottom="8dp" />
 
-    <!-- 🛒 Título del carrito -->
+    <!-- Título del carrito -->
     <TextView
         android:id="@+id/tvCarritoTitulo"
         android:layout_width="wrap_content"
@@ -44,7 +44,7 @@
         android:textStyle="bold"
         android:paddingTop="12dp" />
 
-    <!-- 🔥 Botón Pagar -->
+    <!--  Botón Pagar -->
     <Button
         android:id="@+id/btnPay"
         android:layout_width="match_parent"

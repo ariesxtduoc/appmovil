@@ -29,7 +29,7 @@ object UserPrefs {
         return prefs.getString(KEY_EMAIL, "Sin correo") ?: "Sin correo"
     }
 
-    // NUEVO: obtener dirección
+
     fun getUserAddress(context: Context): String {
         val prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
         return prefs.getString(KEY_ADDRESS, "Sin dirección") ?: "Sin dirección"

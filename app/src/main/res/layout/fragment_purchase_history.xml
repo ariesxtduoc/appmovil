@@ -5,7 +5,7 @@
     android:orientation="vertical"
     android:padding="16dp">
 
-    <!-- 🔙 Botón volver -->
+    <!--  Botón volver -->
     <Button
         android:id="@+id/btnBackPurchaseHistory"
         android:layout_width="wrap_content"

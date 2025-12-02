@@ -104,7 +104,7 @@ dependencies {
     // Navigation testing
     androidTestImplementation("androidx.navigation:navigation-testing:2.9.0")
 
-    // Fragment testing (solo funciona en debug)
+    // Fragment testing
     debugImplementation("androidx.fragment:fragment-testing:1.6.2")
 
     // MockK para instrumentadas
@@ -113,7 +113,7 @@ dependencies {
     // GOOGLE MAPS
     implementation("com.google.android.gms:play-services-maps:18.2.0")
 
-// GOOGLE LOCATION SERVICES (opcional pero recomendado para obtener ubicación)
+// GOOGLE LOCATION SERVICES
     implementation("com.google.android.gms:play-services-location:21.0.1")
 
 }

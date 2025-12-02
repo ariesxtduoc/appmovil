@@ -23,14 +23,14 @@ class PurchaseHistoryAdapter(private val purchases: List<Purchase>) :
     override fun onBindViewHolder(holder: PurchaseViewHolder, position: Int) {
         val purchase = purchases[position]
 
-        // Mostrar todos los nombres de productos separados por coma
+        //  todos los nombres de productos separados por coma
         holder.binding.tvPurchaseName.text =
             purchase.items.joinToString(", ") { it.product.name }
 
-        // Mostrar total
+        //  total
         holder.binding.tvPurchasePrice.text = "Total: $${purchase.total}"
 
-        // Mostrar fecha de la compra
+        //  fecha de la compra
         val date = SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault())
             .format(Date(purchase.timestamp))
         holder.binding.tvPurchaseDate.text = date

@@ -41,7 +41,7 @@ class OrderStatusFragment : Fragment(), OnMapReadyCallback {
 
         loadPurchaseInfo(requireContext())
 
-        // === MAPA ===
+
         val mapFragment = childFragmentManager.findFragmentById(R.id.mapContainer)
                 as SupportMapFragment?
 
@@ -50,9 +50,7 @@ class OrderStatusFragment : Fragment(), OnMapReadyCallback {
         return view
     }
 
-    // =============================================================
-    // = MAP LISTO
-    // =============================================================
+
     override fun onMapReady(map: GoogleMap) {
         googleMap = map
 
@@ -69,9 +67,7 @@ class OrderStatusFragment : Fragment(), OnMapReadyCallback {
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(exampleLocation, 14f))
     }
 
-    // =============================================================
-    // = CARGAR INFORMACIÓN DE COMPRA
-    // =============================================================
+
     private fun loadPurchaseInfo(context: Context) {
 
         val name = UserPrefs.getUserName(context)

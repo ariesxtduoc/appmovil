@@ -4,9 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
-/**
- * ViewModel que maneja el estado de la UI y la lógica de autenticación.
- */
+
 class LoginViewModel : ViewModel() {
 
     // 1. ESTADO DE LOS INPUTS
@@ -24,7 +22,7 @@ class LoginViewModel : ViewModel() {
     // =========================================================================
 
     /**
-     * Intenta autenticar al usuario.
+     *  autenticar al usuario.
      */
     fun attemptLogin() {
         val inputEmail = email.value ?: return

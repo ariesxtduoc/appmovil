@@ -21,7 +21,7 @@ class ProductDetailFragment : Fragment() {
 
     private val args: ProductDetailFragmentArgs by navArgs()
 
-    // Aquí obtienes el ID del usuario actual (ajústalo según tu implementación)
+
     private val currentUserId = "usuario123" // reemplaza con ViewModel de usuario o sesión
 
     override fun onCreateView(
@@ -35,7 +35,7 @@ class ProductDetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Recibir producto
+
         val productJson = args.productoJson
         val product = Gson().fromJson(productJson, Product::class.java)
 
