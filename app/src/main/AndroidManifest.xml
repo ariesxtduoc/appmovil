@@ -2,8 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <!-- Requerido para cargar imágenes desde Internet -->
+    <!-- Permisos necesarios -->
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
 
     <application
         android:allowBackup="true"
@@ -15,6 +17,16 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Appmovil"
         android:usesCleartextTraffic="true">
+
+        <!-- 🔑 API KEY DE GOOGLE MAPS -->
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyANtpKSTWnwSkc41v3etCjq_W1l41bKJPE" />
+
+        <!-- ⚠️ NECESARIO PARA QUE GOOGLE MAPS FUNCIONE -->
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
 
         <activity
             android:name=".MainActivity"

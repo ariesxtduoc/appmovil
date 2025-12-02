@@ -109,4 +109,11 @@ dependencies {
 
     // MockK para instrumentadas
     androidTestImplementation("io.mockk:mockk-android:1.13.9")
+
+    // GOOGLE MAPS
+    implementation("com.google.android.gms:play-services-maps:18.2.0")
+
+// GOOGLE LOCATION SERVICES (opcional pero recomendado para obtener ubicación)
+    implementation("com.google.android.gms:play-services-location:21.0.1")
+
 }
