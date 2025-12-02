@@ -8,7 +8,7 @@
     android:background="@color/soft_white"
     android:padding="32dp"
     android:gravity="center_horizontal"
-    tools:context="com.example.appmovil.ui.theme.ui.login.LoginFragment">
+    tools:context="com.example.appmovil.ui.ui.ui.login.LoginFragment">
 
     <TextView
         android:id="@+id/tv_title"

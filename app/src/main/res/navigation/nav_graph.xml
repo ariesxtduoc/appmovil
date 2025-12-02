@@ -5,10 +5,10 @@
     android:id="@+id/nav_graph"
     app:startDestination="@id/loginFragment">
 
-    <!-- 1. LOGIN -->
+    <!-- LOGIN -->
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.example.appmovil.ui.theme.ui.login.LoginFragment"
+        android:name="com.example.appmovil.ui.ui.ui.login.LoginFragment"
         android:label="Login"
         tools:layout="@layout/fragment_login">
 
@@ -23,10 +23,10 @@
             app:destination="@id/registerFragment" />
     </fragment>
 
-    <!-- 2. REGISTRO -->
+    <!-- REGISTRO -->
     <fragment
         android:id="@+id/registerFragment"
-        android:name="com.example.appmovil.ui.theme.ui.login.RegisterFragment"
+        android:name="com.example.appmovil.ui.ui.ui.login.RegisterFragment"
         android:label="Registro"
         tools:layout="@layout/fragment_register">
 
@@ -34,16 +34,15 @@
             android:id="@+id/action_registerFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
 
-        <!-- ⭐ Acción que te faltaba -->
         <action
             android:id="@+id/action_registerFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
     </fragment>
 
-    <!-- 3. HOME -->
+    <!-- HOME -->
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.example.appmovil.ui.theme.ui.home.HomeFragment"
+        android:name="com.example.appmovil.ui.ui.ui.home.HomeFragment"
         android:label="Catálogo"
         tools:layout="@layout/fragment_home">
 
@@ -64,10 +63,10 @@
             app:destination="@id/profileFragment" />
     </fragment>
 
-    <!-- 4. DETALLE DEL PRODUCTO -->
+    <!-- DETALLE DE PRODUCTO -->
     <fragment
         android:id="@+id/productDetailFragment"
-        android:name="com.example.appmovil.ui.theme.ui.adapter.ProductDetailFragment"
+        android:name="com.example.appmovil.ui.ui.ui.adapter.ProductDetailFragment"
         android:label="Detalle Producto"
         tools:layout="@layout/fragment_product_detail">
 
@@ -76,10 +75,10 @@
             app:argType="string" />
     </fragment>
 
-    <!-- 5. CARRITO -->
+    <!-- CARRITO -->
     <fragment
         android:id="@+id/cartFragment"
-        android:name="com.example.appmovil.ui.theme.ui.cart.CartFragment"
+        android:name="com.example.appmovil.ui.ui.ui.cart.CartFragment"
         android:label="Carrito"
         tools:layout="@layout/fragment_cart">
 
@@ -88,25 +87,37 @@
             app:destination="@id/orderSummaryFragment" />
     </fragment>
 
-    <!-- 6. RESUMEN DE COMPRA -->
+    <!-- RESUMEN DE COMPRA -->
     <fragment
         android:id="@+id/orderSummaryFragment"
-        android:name="com.example.appmovil.ui.theme.ui.cart.OrderSummaryFragment"
+        android:name="com.example.appmovil.ui.ui.ui.cart.OrderSummaryFragment"
         android:label="Resumen de compra"
-        tools:layout="@layout/fragment_order_summary" />
+        tools:layout="@layout/fragment_order_summary">
 
-    <!-- 7. HISTORIAL DE COMPRAS -->
+        <action
+            android:id="@+id/action_orderSummaryFragment_to_orderStatusFragment"
+            app:destination="@id/orderStatusFragment" />
+    </fragment>
+
+    <!-- ESTADO DEL PEDIDO -->
+    <fragment
+        android:id="@+id/orderStatusFragment"
+        android:name="com.example.appmovil.ui.ui.ui.cart.OrderStatusFragment"
+        android:label="Estado del Pedido"
+        tools:layout="@layout/fragment_order_status" />
+
+    <!-- HISTORIAL -->
     <fragment
         android:id="@+id/purchaseHistoryFragment"
-        android:name="com.example.appmovil.ui.theme.ui.cart.PurchaseHistoryFragment"
+        android:name="com.example.appmovil.ui.ui.ui.cart.PurchaseHistoryFragment"
         android:label="Historial de Compras"
         tools:layout="@layout/fragment_purchase_history" />
 
-    <!-- 8. PERFIL DE USUARIO -->
+    <!-- PERFIL -->
     <fragment
         android:id="@+id/profileFragment"
-        android:name="com.example.appmovil.ui.theme.ui.profile.ProfileFragment"
-        android:label="Perfil de Usuario"
+        android:name="com.example.appmovil.ui.ui.ui.profile.ProfileFragment"
+        android:label="Perfil"
         tools:layout="@layout/fragment_profile" />
 
 </navigation>
