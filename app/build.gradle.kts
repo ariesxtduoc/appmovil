@@ -42,6 +42,17 @@ android {
         compose = true
         viewBinding = true
     }
+
+    // =============================
+    //   PACKAGING FIX (IMPORTANTE)
+    // =============================
+    packaging {
+        resources {
+            excludes.add("META-INF/LICENSE.md")
+            excludes.add("META-INF/LICENSE-notice.md")
+            excludes.add("META-INF/NOTICE.md")
+        }
+    }
 }
 
 dependencies {
@@ -51,14 +62,14 @@ dependencies {
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
 
-    // COMPOSE (aunque no lo uses, no afecta)
+    // COMPOSE
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.compose.ui)
     implementation(libs.androidx.compose.ui.graphics)
     implementation(libs.androidx.compose.ui.tooling.preview)
     implementation(libs.androidx.compose.material3)
 
-    // NAVIGATION COMPONENT
+    // NAVIGATION
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
 
@@ -73,33 +84,29 @@ dependencies {
     implementation("com.github.bumptech.glide:glide:4.16.0")
     annotationProcessor("com.github.bumptech.glide:compiler:4.16.0")
 
-    // ====================================
-    //          UNIT TESTS (JUnit)
-    // ====================================
+    // =============================
+    //        UNIT TESTS
+    // =============================
 
-    // JUnit4 (REQUIRED)
     testImplementation("junit:junit:4.13.2")
-
-    // Robolectric (REQUIRED para SessionManager test)
     testImplementation("org.robolectric:robolectric:4.11.1")
-
-    // MockK (opcional pero útil)
     testImplementation("io.mockk:mockk:1.13.9")
-
-    // AndroidX Test Core (REQUIRED)
     testImplementation("androidx.test:core:1.5.0")
 
-    // ====================================
-    //          UI TESTS (Espresso)
-    // ====================================
+    // =============================
+    //        UI TESTS
+    // =============================
 
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
     androidTestImplementation("androidx.test.espresso:espresso-intents:3.5.1")
 
-    // Compose tests
-    androidTestImplementation(platform(libs.androidx.compose.bom))
-    androidTestImplementation(libs.androidx.compose.ui.test.junit4)
-    debugImplementation(libs.androidx.compose.ui.tooling)
-    debugImplementation(libs.androidx.compose.ui.test.manifest)
+    // Navigation testing
+    androidTestImplementation("androidx.navigation:navigation-testing:2.9.0")
+
+    // Fragment testing (solo funciona en debug)
+    debugImplementation("androidx.fragment:fragment-testing:1.6.2")
+
+    // MockK para instrumentadas
+    androidTestImplementation("io.mockk:mockk-android:1.13.9")
 }
