@@ -13,7 +13,7 @@ import org.junit.runner.RunWith
 
 @RunWith(AndroidJUnit4::class)
 @MediumTest
-class RegisterNavigationTest {
+class   RegisterNavigationTest {
 
     @Test
     fun clickBackButton_navegaALoginFragment() {

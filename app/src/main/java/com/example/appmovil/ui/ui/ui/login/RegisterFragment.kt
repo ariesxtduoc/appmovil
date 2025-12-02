@@ -27,8 +27,9 @@ class RegisterFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+
         binding.btnBack.setOnClickListener {
-            findNavController().navigateUp()
+            findNavController().navigate(R.id.action_registerFragment_to_loginFragment)
         }
 
         binding.btnRegister.setOnClickListener {
@@ -47,7 +48,6 @@ class RegisterFragment : Fragment() {
                 return@setOnClickListener
             }
 
-            // Registrar usuario
             val session = SessionManager(requireContext())
             session.saveUser(
                 name = name,
